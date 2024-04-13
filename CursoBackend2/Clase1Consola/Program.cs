@@ -23,12 +23,21 @@
 
 using LibLogica.Interfaces;
 using LibLogica.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 var service = new ServiceCollection();
 
 service.AddScoped<IMiService, MiService>();
+
+#if DEBUG
+    var builder = new ConfigurationBuilder().SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName).AddJsonFile("Appsettings.Development.json", false);
+#else
+    var builder = new ConfigurationBuilder().SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName).AddJsonFile("Appsettings.json", false);
+#endif
+IConfiguration configuration = builder.Build();
+service.AddSingleton(configuration);
 
 var app  = service.BuildServiceProvider();
 var miServicio = app.GetRequiredService<IMiService>();
@@ -79,3 +88,5 @@ while (Convert.ToInt32(operacion) != 0)
     Console.WriteLine(menu);
     operacion = Console.ReadLine();
 }
+
+miServicio.LeerAmbiente();

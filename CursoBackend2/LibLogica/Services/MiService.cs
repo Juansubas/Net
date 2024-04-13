@@ -1,10 +1,16 @@
 ﻿using LibLogica.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.Extensions.Configuration;
 
 namespace LibLogica.Services
+
 {
     public class MiService : IMiService
     {
+        private readonly IConfiguration _configuration;
+        public MiService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public void Division(double num1, double num2)
         {
             try 
@@ -15,6 +21,11 @@ namespace LibLogica.Services
             {
                 Console.WriteLine($"Se generado un error al tratar de hacer la division {ex.Message}");
             }
+        }
+
+        public void LeerAmbiente()
+        {
+            Console.WriteLine(_configuration["Ambiente"]);
         }
 
         public void Multiplicacion(double num1, double num2)
