@@ -39,22 +39,22 @@ Console.WriteLine("Por favor escribe tu nombre");
 var nombre = Console.ReadLine();
 miServicio.Saluda(nombre);
 
-Console.WriteLine("\n A continuacion puedes realizar tu operacion matematica \n " +
-    "Escribe el numero para elegir la operacion.. \n" +
-    "0. Salir y no Elegir opcion \n" + 
-    "1. Suma \n" +
-    "2. Resta \n" +
-    "3. Multiplicacion \n" +
-    "4. Division \n"
-    );
+string menu = "\nA continuación puedes realizar tu operación matemática:\n" +
+    "0. Salir y no elegir opción\n" +
+    "1. Suma\n" +
+    "2. Resta\n" +
+    "3. Multiplicación\n" +
+    "4. División\n";
+
+Console.WriteLine(menu);
 
 var operacion = Console.ReadLine();
 
 while (Convert.ToInt32(operacion) != 0)
 {
-    Console.Write("Ingrese el Numero 1");
+    Console.Write("Ingrese el Numero 1 \n");
     var numero1 = Convert.ToInt32(Console.ReadLine());
-    Console.Write("Ingrese el Numero 2");
+    Console.Write("Ingrese el Numero 2 \n");
     var numero2 = Convert.ToInt32(Console.ReadLine());
 
     switch (operacion)
@@ -76,5 +76,6 @@ while (Convert.ToInt32(operacion) != 0)
             break;
     }
 
+    Console.WriteLine(menu);
     operacion = Console.ReadLine();
 }
