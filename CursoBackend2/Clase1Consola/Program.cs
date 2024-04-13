@@ -38,3 +38,43 @@ Console.WriteLine("Por favor escribe tu nombre");
 
 var nombre = Console.ReadLine();
 miServicio.Saluda(nombre);
+
+Console.WriteLine("\n A continuacion puedes realizar tu operacion matematica \n " +
+    "Escribe el numero para elegir la operacion.. \n" +
+    "0. Salir y no Elegir opcion \n" + 
+    "1. Suma \n" +
+    "2. Resta \n" +
+    "3. Multiplicacion \n" +
+    "4. Division \n"
+    );
+
+var operacion = Console.ReadLine();
+
+while (Convert.ToInt32(operacion) != 0)
+{
+    Console.Write("Ingrese el Numero 1");
+    var numero1 = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Ingrese el Numero 2");
+    var numero2 = Convert.ToInt32(Console.ReadLine());
+
+    switch (operacion)
+    {
+        case "1":
+            miServicio.Suma(numero1, numero2);
+            break;
+        case "2":
+            miServicio.Resta(numero1, numero2);
+            break;
+        case "3":
+            miServicio.Multiplicacion(numero1, numero2);
+            break;
+        case "4":
+            miServicio.Division(numero1, numero2);
+            break;
+        default:
+            Console.WriteLine("Escribiste un valor erroneo");
+            break;
+    }
+
+    operacion = Console.ReadLine();
+}
