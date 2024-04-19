@@ -81,7 +81,8 @@ if (File.Exists(rutaArchivo))
 
     if (lista.Count > 0)
     {
-        File.Move(rutaArchivo, Path.Combine(Path.GetDirectoryName(rutaArchivo), rutaProcesado));
+        //File.Move(rutaArchivo, Path.Combine(Path.GetDirectoryName(rutaArchivo), rutaProcesado));
+        File.Copy(rutaArchivo, Path.Combine(Path.GetDirectoryName(rutaArchivo), rutaProcesado));
     }
 
     Console.WriteLine($"Cantidad de personas {lista.Count()}");
