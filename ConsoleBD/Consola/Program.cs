@@ -52,10 +52,14 @@
 //}
 
 
+using Consola;
 using Data;
 using System.Data;
 
-string path = @"C:\lib\DDI\separado.csv";
+string archivoConfiguracion = Path.Combine(Environment.CurrentDirectory, ".Env");
+var configuracion = new Configuracion();
+var conf = configuracion.ObtenerConfiguracion(archivoConfiguracion);
+
 
 var conexion = new Conexion();
 var manejadorArchivo = new ManejadorArchivo();
@@ -66,7 +70,7 @@ foreach (DataRow usuario in usuarios.Tables[0].Rows)
 {
 	try
 	{
-        if(manejadorArchivo.GuardarEnCsv(usuario, path))
+        if(manejadorArchivo.GuardarEnCsv(usuario, conf["RutaArchivo"]))
 		{
 			conexion.ActualizarSincronizado(int.Parse(usuario["id"].ToString()));
         }
