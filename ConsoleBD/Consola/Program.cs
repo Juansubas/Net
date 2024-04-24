@@ -79,8 +79,15 @@ foreach (DataRow usuario in usuarios.Tables[0].Rows)
 	{
         Console.WriteLine(ex.Message);
     }
-
-	
 }
+
+var destinatarios = new List<string>
+{
+    "juansubas@gmail.com",
+    "paez.juan@correounivalle.edu.co"
+};
+
+var email = Correo.CrearMensaje(destinatarios, "Prueba Correo", "Hola esto es una prueba", false, conf["UsuarioEmail"], "Debate");
+email.EnviarMensaje(conf["UsuarioEmail"], conf["ClaveEmail"], conf["HostEmail"], int.Parse(conf["PuertoEmail"]), bool.Parse(conf["UsaSSL"]));
 
 Console.WriteLine("Fin Lectura");
