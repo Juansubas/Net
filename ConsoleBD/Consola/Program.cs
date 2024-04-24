@@ -1,6 +1,7 @@
 ﻿// Servidor; base de datos; usuario; clave; certificado
 
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 //var Servidor = string.Empty;
 //var Bd = string.Empty;
@@ -25,19 +26,24 @@ using (SqlConnection conn = new SqlConnection(cadena))
 {
 	// var query = "SELECT @@SERVERNAME"; // Consultar nombre del Servidor
 
-	var query = "SELECT * FROM Usuarios";
+	var query = "SELECT * FROM Usuarios; SELECT @@SERVERNAME";
 
     SqlCommand cmd = new SqlCommand(query, conn);
 
 	try
 	{
 		conn.Open();
-		SqlDataReader reader = cmd.ExecuteReader();
-		while (reader.Read())
-		{
-			//Console.WriteLine($"Nombre del servidor: {reader[0]}");
-			Console.WriteLine($"Id: {reader["Id"]}, Nombre: {reader["Nombre"]}, Apellido: {reader["Apellido"]}");
-		}
+		//SqlDataReader reader = cmd.ExecuteReader();
+		//while (reader.Read())
+		//{
+		//	//Console.WriteLine($"Nombre del servidor: {reader[0]}");
+		//	Console.WriteLine($"Id: {reader["Id"]}, Nombre: {reader["Nombre"]}, Apellido: {reader["Apellido"]}");
+		//}
+
+		DataSet dt = new DataSet();
+		var adaptador = new SqlDataAdapter(cmd);
+		adaptador.Fill(dt);
+		Console.ReadLine();
 	}
 	catch (Exception ex)
 	{
