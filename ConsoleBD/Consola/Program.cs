@@ -61,7 +61,7 @@ var configuracion = new Configuracion();
 var conf = configuracion.ObtenerConfiguracion(archivoConfiguracion);
 
 
-var conexion = new Conexion();
+var conexion = new Conexion(conf["Servidor"], conf["BaseDeDatos"]);
 var manejadorArchivo = new ManejadorArchivo();
 
 var usuarios = conexion.ObtenerUsuariosSinSincronizar();

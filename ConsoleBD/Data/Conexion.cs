@@ -5,7 +5,11 @@ namespace Data;
 
 public class Conexion
 {
-    private readonly string cadena = $"Server=.;Database=APIColombia;Integrated Security=True;TrustServerCertificate=True";
+    private string cadena;
+    public Conexion(string servidor, string bd)
+    {
+        cadena = $"Server={servidor};Database={bd};Integrated Security=True;TrustServerCertificate=True";
+    }
 
     public DataSet ObtenerUsuariosSinSincronizar()
     {
