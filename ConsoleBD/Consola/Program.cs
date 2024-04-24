@@ -57,26 +57,26 @@ using System.Data;
 
 string path = @"C:\lib\DDI\separado.csv";
 
-var directory = Path.GetDirectoryName(path);
-
-if (!Directory.Exists(directory))
-{
-	Directory.CreateDirectory(directory);
-}
-
 var conexion = new Conexion();
+var manejadorArchivo = new ManejadorArchivo();
 
 var usuarios = conexion.ObtenerUsuariosSinSincronizar();
 
 foreach (DataRow usuario in usuarios.Tables[0].Rows)
 {
-    var cadena = ($"{usuario["id"]},{usuario["nombre"]},{usuario["apellido"]},{usuario["email"]},{usuario["genero"]},{usuario["usuario"]},{usuario["activo"]}");
-	using (StreamWriter writer = new StreamWriter(path, true))
+	try
 	{
-		writer.WriteLine(cadena);
-	}
+        if(manejadorArchivo.GuardarEnCsv(usuario, path))
+		{
+			conexion.ActualizarSincronizado(int.Parse(usuario["id"].ToString()));
+        }
+    }
+    catch (Exception ex)
+	{
+        Console.WriteLine(ex.Message);
+    }
 
-	conexion.ActualizarSincronizado(int.Parse(usuario["id"].ToString()));
+	
 }
 
 Console.WriteLine("Fin Lectura");
