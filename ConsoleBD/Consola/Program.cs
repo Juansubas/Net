@@ -65,7 +65,7 @@ var conexion = new Conexion(conf["Servidor"], conf["BaseDeDatos"]);
 var manejadorArchivo = new ManejadorArchivo();
 
 var usuarios = conexion.ObtenerUsuariosSinSincronizar();
-var nombreArchivo = $"{Guid.NewGuid().ToString()}";
+var nombreArchivo = $"{Guid.NewGuid().ToString()}.csv";
 
 foreach (DataRow usuario in usuarios.Tables[0].Rows)
 {
@@ -88,7 +88,14 @@ var destinatarios = new List<string>
     "paez.juan@correounivalle.edu.co"
 };
 
+var listaArchivos = new List<string>
+{
+    Path.Combine(conf["RutaArchivo"], nombreArchivo)
+};
+
 var email = Correo.CrearMensaje(destinatarios, "Prueba Correo", "Hola esto es una prueba", false, conf["UsuarioEmail"], "Debate");
+email.AdjuntarArchivos(listaArchivos);
 email.EnviarMensaje(conf["UsuarioEmail"], conf["ClaveEmail"], conf["HostEmail"], int.Parse(conf["PuertoEmail"]), bool.Parse(conf["UsaSSL"]));
 
+File.Delete(Path.Combine(conf["RutaArchivo"], nombreArchivo));
 Console.WriteLine("Fin Lectura");

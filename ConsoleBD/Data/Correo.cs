@@ -21,7 +21,25 @@ public static class Correo
         message.Priority = MailPriority.Normal;
         message.IsBodyHtml = esHtml;
         return message;
-    }   
+    }
+    
+    public static void AdjuntarArchivos(this MailMessage mensaje, List<string> archivos)
+    {
+        if (mensaje != null)
+        {
+            if (archivos.Any())
+            {
+                foreach (string archivo in archivos)
+                {
+                    if (File.Exists(archivo))
+                    {
+                        Attachment adjunto = new Attachment(archivo);
+                        mensaje.Attachments.Add(adjunto);
+                    }
+                }
+            }
+        }
+    }
 
     public static void EnviarMensaje(this MailMessage message, string usuario, string clave, string host, int puerto, bool usaSSL)
     {
