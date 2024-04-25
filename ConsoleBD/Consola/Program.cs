@@ -65,12 +65,13 @@ var conexion = new Conexion(conf["Servidor"], conf["BaseDeDatos"]);
 var manejadorArchivo = new ManejadorArchivo();
 
 var usuarios = conexion.ObtenerUsuariosSinSincronizar();
+var nombreArchivo = $"{Guid.NewGuid().ToString()}";
 
 foreach (DataRow usuario in usuarios.Tables[0].Rows)
 {
 	try
 	{
-        if(manejadorArchivo.GuardarEnCsv(usuario, conf["RutaArchivo"]))
+        if(manejadorArchivo.GuardarEnCsv(usuario, conf["RutaArchivo"], nombreArchivo))
 		{
 			conexion.ActualizarSincronizado(int.Parse(usuario["id"].ToString()));
         }

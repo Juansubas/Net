@@ -5,8 +5,9 @@ namespace Data;
 
 public class ManejadorArchivo
 {
-    public bool GuardarEnCsv(DataRow row, string rutaArchivo)
+    public bool GuardarEnCsv(DataRow row, string rutaArchivo, string nombreArchivo)
     {
+        rutaArchivo = Path.Combine(rutaArchivo, nombreArchivo);
         if (string.IsNullOrEmpty(rutaArchivo)) throw new Exception("La ruta no puede ser vacia");
 
 		try
