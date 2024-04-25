@@ -41,7 +41,7 @@ public static class Correo
         }
     }
 
-    public static void EnviarMensaje(this MailMessage message, string usuario, string clave, string host, int puerto, bool usaSSL)
+    public static void EnviarMensaje(this MailMessage message, string usuario, string clave, string host, int puerto, bool usaSSL, LogService logService)
     {
         SmtpClient smtp = new SmtpClient();
         smtp.Host = host;
@@ -58,7 +58,7 @@ public static class Correo
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al enviar email, {ex.Message}");
+            logService.saveMessage($"Error al enviar email, {ex.Message}");
         }
     }
 }

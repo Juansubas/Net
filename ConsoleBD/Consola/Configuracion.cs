@@ -1,7 +1,10 @@
-﻿namespace Consola;
+﻿using Data;
+
+namespace Consola;
 
 public class Configuracion
 {
+	private readonly LogService _logService = new LogService();
     public static Dictionary<string, string> Conf = new Dictionary<string, string>();
     public Dictionary<string, string> ObtenerConfiguracion(string rutaArchivoConfiguracion)
     {
@@ -18,7 +21,7 @@ public class Configuracion
 		}
 		catch (Exception ex)
 		{
-            Console.WriteLine($"Error al leer el archivo de configuracion");
+			_logService.saveMessage($"Error al leer el archivo de configuracion");
 			return null;
 		}
     }

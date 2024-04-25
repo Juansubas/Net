@@ -56,6 +56,8 @@ using Consola;
 using Data;
 using System.Data;
 
+var logService = new LogService();
+
 Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 string archivoConfiguracion = Path.Combine(Environment.CurrentDirectory, ".Env");
 var configuracion = new Configuracion();
@@ -79,7 +81,7 @@ foreach (DataRow usuario in usuarios.Tables[0].Rows)
     }
     catch (Exception ex)
 	{
-        Console.WriteLine(ex.Message);
+        logService.saveMessage(ex.Message);
     }
 }
 
@@ -92,6 +94,6 @@ var listaArchivos = new List<string>
 
 var email = Correo.CrearMensaje(destinatarios.ToList(), $"Informe Creado {DateTime.Now.ToString("yyyyMMdd hh:mm:ss")}", "Informe de archivo separado por ,", false, conf["UsuarioEmail"], "Juansubas");
 email.AdjuntarArchivos(listaArchivos);
-email.EnviarMensaje(conf["UsuarioEmail"], conf["ClaveEmail"], conf["HostEmail"], int.Parse(conf["PuertoEmail"]), bool.Parse(conf["UsaSSL"]));
+email.EnviarMensaje(conf["UsuarioEmail"], conf["ClaveEmail"], conf["HostEmail"], int.Parse(conf["PuertoEmail"]), bool.Parse(conf["UsaSSL"]), logService);
 
 Console.WriteLine("Fin Lectura");

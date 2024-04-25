@@ -5,6 +5,7 @@ namespace Data;
 
 public class ManejadorArchivo
 {
+    private readonly LogService _logService = new LogService();
     public bool GuardarEnCsv(DataRow row, string rutaArchivo, string nombreArchivo)
     {
         rutaArchivo = Path.Combine(rutaArchivo, nombreArchivo);
@@ -26,7 +27,7 @@ public class ManejadorArchivo
         }
 		catch (Exception ex)
 		{
-            Console.WriteLine($"Se ha generado un error al guardar en el archivo [{rutaArchivo}], {ex.Message}");
+            _logService.saveMessage($"Se ha generado un error al guardar en el archivo [{rutaArchivo}], {ex.Message}");
             return false;
 		}
     }
