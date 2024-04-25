@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Data;
 
@@ -10,8 +11,15 @@ public static class Correo
     {
         MailMessage message = new MailMessage();
         foreach (string destinatario in destinatarios) 
-        { 
-            message.CC.Add(destinatario);
+        {
+            if (EmailValido(destinatario))
+            {
+                message.CC.Add(destinatario);
+            }
+            else
+            {
+                Console.WriteLine($"El correo [{destinatario}] no es un email valido.");
+            }
         }
 
         message.From = new MailAddress(usuario, usuarioAMostrar, Encoding.UTF8);
@@ -60,5 +68,12 @@ public static class Correo
         {
             logService.saveMessage($"Error al enviar email, {ex.Message}");
         }
+    }
+
+    private static bool EmailValido(string Email)
+    {
+        Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+        Match match = regex.Match(Email);
+        return match.Success;
     }
 }
