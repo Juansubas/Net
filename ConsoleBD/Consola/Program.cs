@@ -56,6 +56,7 @@ using Consola;
 using Data;
 using System.Data;
 
+Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 string archivoConfiguracion = Path.Combine(Environment.CurrentDirectory, ".Env");
 var configuracion = new Configuracion();
 var conf = configuracion.ObtenerConfiguracion(archivoConfiguracion);
