@@ -82,20 +82,15 @@ foreach (DataRow usuario in usuarios.Tables[0].Rows)
     }
 }
 
-var destinatarios = new List<string>
-{
-    "juansubas@gmail.com",
-    "paez.juan@correounivalle.edu.co"
-};
+var destinatarios = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "Destinatarios.txt"));
 
 var listaArchivos = new List<string>
 {
     Path.Combine(conf["RutaArchivo"], nombreArchivo)
 };
 
-var email = Correo.CrearMensaje(destinatarios, "Prueba Correo", "Hola esto es una prueba", false, conf["UsuarioEmail"], "Debate");
+var email = Correo.CrearMensaje(destinatarios.ToList(), $"Informe Creado {DateTime.Now.ToString("yyyyMMdd hh:mm:ss")}", "Informe de archivo separado por ,", false, conf["UsuarioEmail"], "Juansubas");
 email.AdjuntarArchivos(listaArchivos);
 email.EnviarMensaje(conf["UsuarioEmail"], conf["ClaveEmail"], conf["HostEmail"], int.Parse(conf["PuertoEmail"]), bool.Parse(conf["UsaSSL"]));
 
-File.Delete(Path.Combine(conf["RutaArchivo"], nombreArchivo));
 Console.WriteLine("Fin Lectura");
