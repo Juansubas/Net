@@ -1,4 +1,6 @@
-﻿namespace DMS.IntegracionesCurso.Core.Interfaces;
+﻿using System.Text.RegularExpressions;
+
+namespace DMS.IntegracionesCurso.Core.Interfaces;
 
 public interface ICorreoService
 {
