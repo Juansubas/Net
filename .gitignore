@@ -482,3 +482,4 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/DMS.IntegracionesCurso/DMS.IntegracionesCurso.App/appsettings.json
