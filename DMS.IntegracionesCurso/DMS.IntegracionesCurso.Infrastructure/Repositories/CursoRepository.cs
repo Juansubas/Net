@@ -35,7 +35,7 @@ public class CursoRepository : ICursoRepository
         }
     }
 
-    public DataSet ObtenerUsuariosSincronizados()
+    public DataSet ObtenerUsuariosSinSincronizar()
     {
         DataSet dt = new DataSet();
 

@@ -8,7 +8,7 @@ public interface ICursoRepository
     /// Este metodo permite obtener todos los usuarios que no se han sincronizados
     /// </summary>
     /// <returns>DataSet con los usuarios sin sincronizar</returns>
-    DataSet ObtenerUsuariosSincronizados();
+    DataSet ObtenerUsuariosSinSincronizar();
 
     /// <summary>
     /// Permite marcar un usuario como sincronizado

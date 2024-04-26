@@ -37,7 +37,7 @@ public class CorreoService : ICorreoService
             }
         }
 
-        message.From = new MailAddress(_configuration["UsuarioEmail"], _configuration["NombreUsuarioEmail"], Encoding.UTF8);;
+        message.From = new MailAddress(_configuration["ConfiguracionEmail:UsuarioEmail"], _configuration["ConfiguracionEmail:NombreUsuarioEmail"], Encoding.UTF8);;
         message.Subject = asunto;
         message.Body = cuerpo;
         message.BodyEncoding = Encoding.UTF8;
@@ -57,12 +57,12 @@ public class CorreoService : ICorreoService
         }
 
         SmtpClient smtp = new SmtpClient();
-        smtp.Host = _configuration["HostSmtp"];
-        smtp.Port = int.Parse(_configuration["PuertoEmail"]);
-        smtp.EnableSsl = bool.Parse(_configuration["UsaSSL"]);
+        smtp.Host = _configuration["ConfiguracionEmail:HostSmtp"];
+        smtp.Port = int.Parse(_configuration["ConfiguracionEmail:PuertoEmail"]);
+        smtp.EnableSsl = bool.Parse(_configuration["ConfiguracionEmail:UsaSSL"]);
         smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
         smtp.UseDefaultCredentials = false;
-        smtp.Credentials = new NetworkCredential(_configuration["UsuarioEmail"], _configuration["ClaveUsuarioEmail"]);
+        smtp.Credentials = new NetworkCredential(_configuration["ConfiguracionEmail:UsuarioEmail"], _configuration["ConfiguracionEmail:ClaveUsuarioEmail"]);
         //smtp.Timeout = 30;
 
         try
