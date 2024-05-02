@@ -22,15 +22,31 @@ public class ExecuteService : IExecuteService
     }
     public void Execute()
     {
-        var nombreArchivo = $"{Guid.NewGuid()}.csv";
+        var nombreArchivo = Guid.NewGuid().ToString();
         var rutaArchivo = Path.Combine(_configuration["RutaArchivo"], nombreArchivo);
         var datos = _cursoRepository.ObtenerUsuariosSinSincronizar();
-        if (_archivoService.GuardarEnCSV(datos.Tables[0], rutaArchivo))
+
+        var tipoArchivo = int.Parse(_configuration["TipoArchivo"]);
+
+        switch (tipoArchivo)
         {
-            foreach(DataRow row in datos.Tables[0].Rows)
-            {
-                _cursoRepository.ActualizarSincronizados(int.Parse(row["id"].ToString()));
-            }
+            case 1:
+                rutaArchivo = $"{rutaArchivo}.csv";
+                _archivoService.GuardarEnCSV(datos.Tables[0], rutaArchivo);
+                break;
+            case 2:
+                rutaArchivo = $"{rutaArchivo}.json";
+                _archivoService.CrearJson(datos.Tables[0], rutaArchivo);
+                break;
+            case 3:
+                rutaArchivo = $"{rutaArchivo}.xml";
+                _archivoService.CrearXml(datos.Tables[0], rutaArchivo);
+                 break;
+        }
+
+        foreach (DataRow row in datos.Tables[0].Rows)
+        {
+            _cursoRepository.ActualizarSincronizados(int.Parse(row["id"].ToString()));
         }
 
         var destinatarios = _configuration.GetSection("Destinatarios").Get<List<string>>();
